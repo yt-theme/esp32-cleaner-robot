@@ -1,7 +1,7 @@
 <template>
 	<view class="controlPad-container">
-		<view class="test" @click="writeBLECharacteristicValue('boardled.01')">test1</view>
-		<view class="test" @click="writeBLECharacteristicValue('boardled.00')">test0</view>
+		<button class="test" @click="writeBLECharacteristicValue('boardled.01')">test1</button>
+		<button class="test" @click="writeBLECharacteristicValue('boardled.00')">test0</button>
 		
 		<!-- direct -->
 		<view class="direct-container">
@@ -74,6 +74,8 @@
 <style>
 	.controlPad-container {
 		.test {
+			width: 150upx;
+			height: 90upx;
 			border: 1px solid #ccc;
 			padding: 5px;
 		}

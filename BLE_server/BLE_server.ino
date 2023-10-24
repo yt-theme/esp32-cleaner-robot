@@ -8,7 +8,7 @@
 #include <BLEUtils.h>
 #include <BLEServer.h>
 #include "GPIO_define.h"
-#include "BLE_receive_callbacks.h"
+#include "BLE_callbacks.h"
 
 // See the following for generating UUIDs:
 // https://www.uuidgenerator.net/
@@ -23,18 +23,8 @@ BLECharacteristic *pCharacteristic = NULL;
 bool deviceConnected = false;                //本次连接状态
 bool oldDeviceConnected = false;             //上次连接状态d
 
-class MyServerCallbacks : public BLEServerCallbacks
-{
-    void onConnect(BLEServer *pServer)
-    {
-      deviceConnected = true;
-    };
-
-    void onDisconnect(BLEServer *pServer)
-    {
-      deviceConnected = false;
-    }
-};
+BleServerCallbacks *bleServerCallbacks = new BleServerCallbacks(&deviceConnected);
+ReceiveCallbacks *receiveCallbacks = new ReceiveCallbacks();
 
 void setup() {
   GPIO_define_init();
@@ -44,7 +34,7 @@ void setup() {
 
   BLEDevice::init("esp32");
   pServer = BLEDevice::createServer();
-  pServer->setCallbacks(new MyServerCallbacks()); //设置回调
+  pServer->setCallbacks(bleServerCallbacks); //设置回调
   pService = pServer->createService(SERVICE_UUID);
   pCharacteristic = pService->createCharacteristic(
                        CHARACTERISTIC_UUID,
@@ -52,9 +42,9 @@ void setup() {
                        BLECharacteristic::PROPERTY_WRITE |
                        BLECharacteristic::PROPERTY_NOTIFY
                      );
-  pCharacteristic->setCallbacks(new ReceiveCallbacks()); //设置回调
+  pCharacteristic->setCallbacks(receiveCallbacks); //设置回调
 
-  pCharacteristic->setValue("Hello World says Neil");
+  pCharacteristic->setValue("HELLO BLE =>");
   pService->start();
   // BLEAdvertising *pAdvertising = pServer->getAdvertising();  // this still is working for backward compatibility
   BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();

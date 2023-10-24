@@ -1,5 +1,4 @@
 #pragma once
-#include <Arduino.h>
 
 // 测试灯
 #define TEST_LED LED_BUILTIN
