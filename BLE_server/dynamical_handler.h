@@ -4,6 +4,7 @@
 #include "BLE_cmd.h"
 #include "GPIO_define.h"
 
+void onTimerInterrDyn();
 void timerCloseDyn();
 
 /*
@@ -11,23 +12,6 @@ void timerCloseDyn();
 */
 hw_timer_t* timerDyn = NULL;
 bool timerDynIsInitted = false;
-
-/*
-  计时器回调
-*/
-void onTimerInterrDyn()
-{
-  Serial.println("计时器回调 =>");
-  if (timerDyn)
-  {
-    // timerAlarmDisable(timerDyn);
-    timerCloseDyn();
-  }
-  // 关闭动力
-  ledcWrite(MOTO_CHANNEL_PWM_0, 77);
-  ledcWrite(MOTO_CHANNEL_PWM_1, 77);
-  Serial.println("关闭动力 =>");
-}
 
 /*
   计时器初始化方法
@@ -61,9 +45,26 @@ void timerCloseDyn()
 }
 
 /*
+  计时器回调
+*/
+void onTimerInterrDyn()
+{
+  Serial.println("计时器回调 =>");
+  if (timerDyn)
+  {
+    // timerAlarmDisable(timerDyn);
+    timerCloseDyn();
+  }
+  // 关闭动力
+  ledcWrite(MOTO_CHANNEL_PWM_0, 77);
+  ledcWrite(MOTO_CHANNEL_PWM_1, 77);
+  Serial.println("关闭动力 =>");
+}
+
+/*
   动力指令处理
 */
-void dynamicalHandler(std::string cmdVal)
+void dynamicalHandler(const std::string& cmdVal)
 {
 
   if (cmdVal == BLE_CMD_FORWARD)
@@ -93,6 +94,8 @@ void dynamicalHandler(std::string cmdVal)
     Serial.println("BLE_CMD_TRUNLEFT =>");
     // 关闭计时
     timerCloseDyn();
+    ledcWrite(MOTO_CHANNEL_PWM_0, 52);
+    ledcWrite(MOTO_CHANNEL_PWM_1, 102);
     // 进行计时
     timerInitDyn();
     timerAlarmEnable(timerDyn);
@@ -102,6 +105,8 @@ void dynamicalHandler(std::string cmdVal)
     Serial.println("BLE_CMD_TRUNRIGHT =>");
     // 关闭计时
     timerCloseDyn();
+    ledcWrite(MOTO_CHANNEL_PWM_0, 102);
+    ledcWrite(MOTO_CHANNEL_PWM_1, 52);
     // 进行计时
     timerInitDyn();
     timerAlarmEnable(timerDyn);

@@ -5,6 +5,9 @@
 #include "BLE_cmd.h"
 #include "dynamical_handler.h"
 
+/*
+* BLE server callbacks
+*/
 class BleServerCallbacks : public BLEServerCallbacks
 {
   public:
@@ -26,6 +29,9 @@ class BleServerCallbacks : public BLEServerCallbacks
     }
 };
 
+/*
+* BLE receive callbacks
+*/
 class ReceiveCallbacks : public BLECharacteristicCallbacks
 {
     void onWrite(BLECharacteristic *pCharacteristic)
