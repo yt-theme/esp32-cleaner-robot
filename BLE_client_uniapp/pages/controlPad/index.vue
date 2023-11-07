@@ -1,12 +1,14 @@
 <template>
 	<view class="controlPad-container">
-		<button class="test" @touchstart="handleButtonDown('boardled.01')"
-			@touchend="handleButtonUp('boardled.01')"
-			@touchcancel="handleButtonUp('boardled.01')">test1</button>
-		<button class="test" @touchstart="handleButtonDown('boardled.00')"
-			@touchend="handleButtonUp('boardled.00')"
-			@touchcancel="handleButtonUp('boardled.00')">test0</button>
-
+		<!-- test btn area -->
+		<view class="test-area">
+			<button class="test" @touchstart="handleButtonDown('boardled.01')"
+				@touchend="handleButtonUp('boardled.01')"
+				@touchcancel="handleButtonUp('boardled.01')">test1</button>
+			<button class="test" @touchstart="handleButtonDown('boardled.00')"
+				@touchend="handleButtonUp('boardled.00')"
+				@touchcancel="handleButtonUp('boardled.00')">test0</button>
+		</view>
 		<!-- direct -->
 		<view class="direct-container">
 			<view class="circle-btn" @touchstart="handleButtonDown('direct.01')"
@@ -93,7 +95,7 @@
 					try {
 						await this.writeBLECharacteristicValue(cmdVal);
 					} catch (e) {}
-				}, 100)
+				}, 20)
 			},
 			// 按钮抬起
 			handleButtonUp(cmdVal) {
@@ -106,11 +108,16 @@
 </script>
 <style>
 	.controlPad-container {
-		.test {
-			width: 150upx;
-			height: 90upx;
-			border: 1px solid #ccc;
-			padding: 5px;
+		.test-area {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			.test {
+				width: 150upx;
+				height: 90upx;
+				border: 1px solid #ccc;
+				padding: 5px;
+			}
 		}
 
 		.direct-container {

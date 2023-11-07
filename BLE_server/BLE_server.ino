@@ -35,9 +35,6 @@ void setup() {
 
   GPIO_define_init();
 
-  // spi init
-  SpiHandler::init();
-
   BLEDevice::init("esp32");
   pServer = BLEDevice::createServer();
   pServer->setCallbacks(bleServerCallbacks);  //设置回调
@@ -57,6 +54,9 @@ void setup() {
   pAdvertising->setMinPreferred(0x12);
   BLEDevice::startAdvertising();
   Serial.println("Characteristic defined! Now you can read it in your phone!");
+
+  // spi init
+  SpiHandler::init();
 }
 
 void loop() {
