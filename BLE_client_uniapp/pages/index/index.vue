@@ -66,10 +66,13 @@
 
 			// 点击扫描设备
 			scan() {
+				this.deviceRecordsObj = {}
+				
 				var _this = this
 				if (_this.isScanning) {
 					return false;
 				}
+				
 				// 扫描前要断开连接
 				this.disconnect()
 				
@@ -123,28 +126,6 @@
 			onBluetoothDeviceFound() {
 				console.log("发现外围设备ing")
 				uni.onBluetoothDeviceFound((res) => {
-					// console.log(res)
-					// console.log(res.devices)
-					// console.log(res.devices[0])
-					// console.log(res.devices[0].name)
-					// if(this.list.indexOf(res.devices[0].deviceId)==-1){
-					console.log(res.devices)
-					// this.list.push(res.devices[0].deviceId)
-					// if(res.devices[0].name!=""){
-					// if(res.devices[0].name.indexOf("Scooter") != -1){
-					// this.lists.push([
-					// 	res.devices[0].name,
-					// 	res.devices[0].deviceId,
-					// 	res.devices[0].RSSI
-					// ])
-					// }
-
-					// }
-					// console.log(res.devices[0].name)
-					// console.log(this.lists)
-
-					// }
-
 					this.deviceRecordsObj[res.devices[0].deviceId] = res.devices[0]
 					this.lists = [];
 					for (let key in this.deviceRecordsObj) {
@@ -178,7 +159,6 @@
 				//连接蓝牙
 				uni.createBLEConnection({
 					// 这里的 deviceId 需要已经通过 createBLEConnection 与对应设备建立链接
-					// 传入res.devices[0].deviceId
 					deviceId: deviceId,
 					async success(res) {
 						await thit.stopBluetoothDevicesDiscovery()
@@ -232,13 +212,6 @@
 							let uuid = res.services.map(i => i.uuid)
 							console.log(uuid)
 
-							// if(!uuid.includes("00008880-7777-EFDE-1523-785FEABCD123")){
-							// 	uni.showToast({
-							// 		icon:"none",
-							// 		title: '请连接对应的设备'
-							// 	});
-							// 	this.disconnect();
-							// }
 							res.services.forEach((item) => {
 								console.log("services item =>", item)
 								if (item.uuid === "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
@@ -288,10 +261,6 @@
 						success: (res) => {
 							console.log(res, 'getBLEDeviceCharacteristics')
 							this.characteristics = res.characteristics
-							// this.$store.commit("chara",res.characteristics)
-							// console.log(this.characteristics)
-							// console.log(this.characteristics[0].uuid)
-
 							res.characteristics.forEach((item) => {
 								if (item.uuid === "beb5483e-36e1-4688-b7f5-ea07361b26a8"
 									.toUpperCase()) {
@@ -338,9 +307,6 @@
 								characteristicId: characteristicId,
 								success: (res) => {
 									console.log("读取成功222")
-									// console.log("这里读到的蓝牙uuid是"+characteristicId)
-
-									// console.log('readBLECharacteristicValue:', res)
 								},
 								fail: (res) => {
 									console.log("读取失败" + characteristicId)

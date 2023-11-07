@@ -93,7 +93,7 @@
 					try {
 						await this.writeBLECharacteristicValue(cmdVal);
 					} catch (e) {}
-				}, 20)
+				}, 100)
 			},
 			// 按钮抬起
 			handleButtonUp(cmdVal) {
