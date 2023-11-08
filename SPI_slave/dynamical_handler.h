@@ -33,6 +33,18 @@ static void dynListenTimeForStop() {
 }
 
 /*
+  统一舵机动力处理
+*/
+static void pubServoAction(int servoVal_0, int servoVal_1) {
+  for (pos = 0; pos <= 90; pos += 1) { // goes from 0 degrees to 180 degrees
+    // in steps of 1 degree
+    myservo_0.write(servoVal_0);              // tell servo to go to position in variable 'pos'
+    myservo_1.write(servoVal_1);
+    delay(1);                       // waits 15 ms for the servo to reach the position
+  }
+}
+
+/*
   动力指令处理
 */
 static void dynamicalHandler(const char * cmdVal) {
@@ -50,39 +62,19 @@ static void dynamicalHandler(const char * cmdVal) {
 
   if (compareCmd(cmdVal, BLE_CMD_FORWARD)) {
     Serial.println("BLE_CMD_FORWARD =>");
-    for (pos = 0; pos <= 90; pos += 1) { // goes from 0 degrees to 180 degrees
-      // in steps of 1 degree
-      myservo_0.write(45);              // tell servo to go to position in variable 'pos'
-      myservo_1.write(1);
-      delay(1);                       // waits 15 ms for the servo to reach the position
-    }
+    pubServoAction(45, 45);
 
   } else if (compareCmd(cmdVal, BLE_CMD_BACKWARD)) {
     Serial.println("BLE_CMD_BACKWARD =>");
-    for (pos = 0; pos <= 90; pos += 1) { // goes from 0 degrees to 180 degrees
-      // in steps of 1 degree
-      myservo_0.write(135);              // tell servo to go to position in variable 'pos'
-      myservo_1.write(135);
-      delay(1);                       // waits 15 ms for the servo to reach the position
-    }
+    pubServoAction(135, 135);
 
   } else if (compareCmd(cmdVal, BLE_CMD_TRUNLEFT)) {
     Serial.println("BLE_CMD_TRUNLEFT =>");
-    for (pos = 0; pos <= 90; pos += 1) { // goes from 0 degrees to 180 degrees
-      // in steps of 1 degree
-      myservo_0.write(135);              // tell servo to go to position in variable 'pos'
-      myservo_1.write(45);
-      delay(1);                       // waits 15 ms for the servo to reach the position
-    }
+    pubServoAction(135, 45);
 
   } else if (compareCmd(cmdVal, BLE_CMD_TRUNRIGHT)) {
     Serial.println("BLE_CMD_TRUNRIGHT =>");
-    for (pos = 0; pos <= 90; pos += 1) { // goes from 0 degrees to 180 degrees
-      // in steps of 1 degree
-      myservo_0.write(45);              // tell servo to go to position in variable 'pos'
-      myservo_1.write(135);
-      delay(1);                       // waits 15 ms for the servo to reach the position
-    }
+    pubServoAction(45, 135);
 
   } else if (cmdVal == BLE_CMD_GEAR0) {
     Serial.println("BLE_CMD_GEAR0 =>");
