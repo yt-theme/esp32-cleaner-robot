@@ -1,5 +1,6 @@
 #include <SPI.h>
-#include "dynamical_handler.h"
+// #include "dynamical_handler.h"
+#include "dynamical_handler_TT.h"
 #include "common.h"
 
 char buff[64];
@@ -18,7 +19,7 @@ void setup () {
   Serial.println("slave =>");
 
   // 动力部分初始化
-  DynamicalHandler::init();
+  DynamicalHandlerTT::init();
 }
 
 ISR (SPI_STC_vect) // SPI中断程序
@@ -51,7 +52,7 @@ ISR (SPI_STC_vect) // SPI中断程序
 void loop () {
 
   // 用于延时关闭动力
-  DynamicalHandler::dynListenTimeForStop();
+  DynamicalHandlerTT::dynListenTimeForStop();
 
   if (process) {
     Serial.print("process =>");
@@ -60,6 +61,6 @@ void loop () {
     indx = 0; //重置index,即为重置buff索引
 
     // 处理动力命令
-    DynamicalHandler::dynamicalHandler(cmdBuff);
+    DynamicalHandlerTT::dynamicalHandler(cmdBuff);
   }
 }

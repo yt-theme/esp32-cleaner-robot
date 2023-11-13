@@ -8,6 +8,17 @@
 			<button class="test" @touchstart="handleButtonDown('boardled.00')"
 				@touchend="handleButtonUp('boardled.00')"
 				@touchcancel="handleButtonUp('boardled.00')">test0</button>
+				
+			<!-- 速度档 -->
+			<button class="test" @touchstart="handleButtonDown('gear.00')"
+				@touchend="handleButtonUp('gear.00')"
+				@touchcancel="handleButtonUp('gear.00')">Gear0</button>
+			<button class="test" @touchstart="handleButtonDown('gear.01')"
+				@touchend="handleButtonUp('gear.01')"
+				@touchcancel="handleButtonUp('gear.01')">Gear1</button>
+			<button class="test" @touchstart="handleButtonDown('gear.02')"
+				@touchend="handleButtonUp('gear.02')"
+				@touchcancel="handleButtonUp('gear.02')">Gear2</button>
 		</view>
 		<!-- direct -->
 		<view class="direct-container">
