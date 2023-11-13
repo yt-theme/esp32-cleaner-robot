@@ -31,7 +31,7 @@ IN3、IN4同时输入高电平HIGH或低电平LOW，对应电机B停止转动
 #define TT_PWM_SPEED_2 400
 
 // 信号间隔ms
-#define BLE_SIGNAL_INTERVAL 100
+#define BLE_SIGNAL_INTERVAL 92
 
 //动力部分
 #define BLE_CMD_FORWARD "direct.01"
