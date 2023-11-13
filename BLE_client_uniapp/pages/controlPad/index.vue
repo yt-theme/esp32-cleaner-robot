@@ -22,18 +22,41 @@
 		</view>
 		<!-- direct -->
 		<view class="direct-container">
+			<!-- 前 -->
 			<view class="circle-btn" @touchstart="handleButtonDown('direct.01')"
 				@touchend="handleButtonUp('direct.01')"
 				@touchcancel="handleButtonUp('direct.01')">▲</view>
+			<!-- 左 -->
 			<view class="circle-btn" @touchstart="handleButtonDown('direct.03')"
 				@touchend="handleButtonUp('direct.03')"
 				@touchcancel="handleButtonUp('direct.03')">◀</view>
+			<!-- 右 -->
 			<view class="circle-btn" @touchstart="handleButtonDown('direct.04')"
 				@touchend="handleButtonUp('direct.04')"
 				@touchcancel="handleButtonUp('direct.04')">▶</view>
+			<!-- 下 -->
 			<view class="circle-btn" @touchstart="handleButtonDown('direct.02')"
 				@touchend="handleButtonUp('direct.02')"
 				@touchcancel="handleButtonUp('direct.02')">▼</view>
+		</view>
+		<!-- 功能控制 -->
+		<view class="function-area">
+			<!-- 下降 -->
+			<button class="test" @touchstart="handleButtonDown('func.01')"
+				@touchend="handleButtonUp('func.01')"
+				@touchcancel="handleButtonUp('func.01')">下降</button>
+			<!-- 上升 -->
+			<button class="test" @touchstart="handleButtonDown('func.02')"
+				@touchend="handleButtonUp('func.02')"
+				@touchcancel="handleButtonUp('func.02')">上升</button>
+			<!-- 清洗 -->
+			<button class="test" @touchstart="handleButtonDown('func.03')"
+				@touchend="handleButtonUp('func.03')"
+				@touchcancel="handleButtonUp('func.03')">清洗</button>
+			<!-- 复位 -->
+			<button class="test" @touchstart="handleButtonDown('func.04')"
+				@touchend="handleButtonUp('func.04')"
+				@touchcancel="handleButtonUp('func.04')">复位</button>
 		</view>
 	</view>
 </template>
@@ -119,6 +142,9 @@
 </script>
 <style>
 	.controlPad-container {
+		width: 100vw;
+		height: 100vh;
+		overflow: auto;
 		.test-area {
 			display: flex;
 			justify-content: center;
@@ -129,6 +155,14 @@
 				border: 1px solid #ccc;
 				padding: 5px;
 			}
+		}
+		
+		.function-area {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 100vw;
+			padding: 10upx 0;
 		}
 
 		.direct-container {
@@ -146,6 +180,7 @@
 				text-align: center;
 				line-height: 100upx;
 				user-select: none;
+				margin-top: 100upx;
 			}
 
 			.circle-btn:nth-child(1) {

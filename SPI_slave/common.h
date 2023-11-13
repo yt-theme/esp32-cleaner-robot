@@ -42,6 +42,12 @@ IN3、IN4同时输入高电平HIGH或低电平LOW，对应电机B停止转动
 #define BLE_CMD_GEAR1 "gear.01"
 #define BLE_CMD_GEAR2 "gear.02"
 
+//功能部分
+#define BLE_CMD_DOWN "func.01"
+#define BLE_CMD_UP "func.02"
+#define BLE_CMD_WASH "func.03"
+#define BLE_CMD_RESET "func.04"
+
 // 判断指令是否相符
 bool compareCmd(const char * target, const char * origin)
 {
