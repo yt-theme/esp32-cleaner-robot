@@ -2,23 +2,30 @@
 	<view class="controlPad-container">
 		<!-- test btn area -->
 		<view class="test-area">
-			<button class="test" @touchstart="handleButtonDown('boardled.01')"
-				@touchend="handleButtonUp('boardled.01')"
-				@touchcancel="handleButtonUp('boardled.01')">test1</button>
-			<button class="test" @touchstart="handleButtonDown('boardled.00')"
-				@touchend="handleButtonUp('boardled.00')"
-				@touchcancel="handleButtonUp('boardled.00')">test0</button>
-				
-			<!-- 速度档 -->
-			<button class="test" @touchstart="handleButtonDown('gear.00')"
-				@touchend="handleButtonUp('gear.00')"
-				@touchcancel="handleButtonUp('gear.00')">Gear0</button>
-			<button class="test" @touchstart="handleButtonDown('gear.01')"
-				@touchend="handleButtonUp('gear.01')"
-				@touchcancel="handleButtonUp('gear.01')">Gear1</button>
-			<button class="test" @touchstart="handleButtonDown('gear.02')"
-				@touchend="handleButtonUp('gear.02')"
-				@touchcancel="handleButtonUp('gear.02')">Gear2</button>
+			<view class="row">
+				<button class="test" @touchstart="handleButtonDown('boardled.01')"
+					@touchend="handleButtonUp('boardled.01')"
+					@touchcancel="handleButtonUp('boardled.01')">test1</button>
+				<button class="test" @touchstart="handleButtonDown('boardled.00')"
+					@touchend="handleButtonUp('boardled.00')"
+					@touchcancel="handleButtonUp('boardled.00')">test0</button>
+					
+				<!-- 速度档 -->
+				<button class="test" @touchstart="handleButtonDown('gear.00')"
+					@touchend="handleButtonUp('gear.00')"
+					@touchcancel="handleButtonUp('gear.00')">Gear0</button>
+				<button class="test" @touchstart="handleButtonDown('gear.01')"
+					@touchend="handleButtonUp('gear.01')"
+					@touchcancel="handleButtonUp('gear.01')">Gear1</button>
+				<button class="test" @touchstart="handleButtonDown('gear.02')"
+					@touchend="handleButtonUp('gear.02')"
+					@touchcancel="handleButtonUp('gear.02')">Gear2</button>
+			</view>
+			<view class="row">
+				<!-- 自定义速度 -->
+				<view class="slider-label">精准变速</view>
+				<slider class="slider" value="100" @change="speedSliderChange" min="0" max="255" show-value />
+			</view>
 		</view>
 		<!-- direct -->
 		<view class="direct-container">
@@ -70,13 +77,19 @@
 					serviceId: "",
 					characteristicId: ""
 				},
-				longPressTimer: null
+				longPressTimer: null,
+				speedSliderChangeTimer: null,
+				speedSliderValue: 100,
 			}
 		},
 		onLoad(options) {
 			this.options = options
 		},
 		methods: {
+			async speedSliderChange(e) {
+				this.speedSliderValue = e.target.value;
+				await this.writeBLECharacteristicValue("gear.99" + this.speedSliderValue);
+			},
 			string2Hex(str) {
 				let val = ""
 				for (let i = 0; i < str.length; i++) {
@@ -102,6 +115,7 @@
 					console.log("buffer =>", buffer)
 
 					uni.writeBLECharacteristicValue({
+						writeType: "writeNoResponse",
 						// 这里的 deviceId 需要在 getBluetoothDevices 或 onBluetoothDeviceFound 接口中获取
 						deviceId: this.options.deviceId,
 						// 这里的 serviceId 需要在 getBLEDeviceServices 接口中获取
@@ -146,9 +160,17 @@
 		height: 100vh;
 		overflow: auto;
 		.test-area {
-			display: flex;
-			justify-content: center;
-			align-items: center;
+			.row {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.slider-label {
+				width: 5em;
+			}
+			.slider {
+				width: calc(100% - 5em);
+			}
 			.test {
 				width: 150upx;
 				height: 90upx;

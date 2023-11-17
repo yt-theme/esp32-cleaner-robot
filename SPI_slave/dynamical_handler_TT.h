@@ -108,6 +108,11 @@ static void dynamicalHandler(const char* cmdVal) {
   } else if (compareCmd(cmdVal, BLE_CMD_GEAR2)) {
     Serial.println("BLE_CMD_GEAR2 =>");
     pwmSpeed = TT_PWM_SPEED_2;
+  } else {
+    String cmdGearCustomVal = compareCmdHeader(cmdVal, BLE_CMD_GEAR_CUSTOM);
+    if (cmdGearCustomVal != ""){
+      pwmSpeed = cmdGearCustomVal.toInt();
+    }
   }
 }
 }

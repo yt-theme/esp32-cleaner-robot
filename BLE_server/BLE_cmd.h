@@ -15,6 +15,7 @@
 #define BLE_CMD_GEAR0 "gear.00"
 #define BLE_CMD_GEAR1 "gear.01"
 #define BLE_CMD_GEAR2 "gear.02"
+#define BLE_CMD_GEAR_CUSTOM "gear.99"
 
 //功能部分
 #define BLE_CMD_DOWN "func.01"

@@ -53,7 +53,15 @@ class ReceiveCallbacks : public BLECharacteristicCallbacks {
       /*
           动力部分
         */
-      if (rxValue == BLE_CMD_FORWARD || rxValue == BLE_CMD_BACKWARD || rxValue == BLE_CMD_TRUNLEFT || rxValue == BLE_CMD_TRUNRIGHT || rxValue == BLE_CMD_GEAR0 || rxValue == BLE_CMD_GEAR1 || rxValue == BLE_CMD_GEAR2) {
+      if (rxValue == BLE_CMD_FORWARD || 
+          rxValue == BLE_CMD_BACKWARD || 
+          rxValue == BLE_CMD_TRUNLEFT || 
+          rxValue == BLE_CMD_TRUNRIGHT || 
+          rxValue == BLE_CMD_GEAR0 || 
+          rxValue == BLE_CMD_GEAR1 || 
+          rxValue == BLE_CMD_GEAR2 ||
+          rxValue.find(BLE_CMD_GEAR_CUSTOM) != std::string::npos
+          ) {
         // DynamicalHandler2::dynamicalHandler(rxValue);
         const char * cmdCharArr = rxValue.data();
         SpiHandler::transfer(cmdCharArr, strlen(cmdCharArr));

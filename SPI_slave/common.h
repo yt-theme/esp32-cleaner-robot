@@ -42,6 +42,7 @@
 #define BLE_CMD_GEAR0 "gear.00"
 #define BLE_CMD_GEAR1 "gear.01"
 #define BLE_CMD_GEAR2 "gear.02"
+#define BLE_CMD_GEAR_CUSTOM "gear.99"
 
 //功能部分
 #define BLE_CMD_DOWN "func.01"
@@ -53,4 +54,14 @@
 bool compareCmd(const char * target, const char * origin)
 {
   return String(target) == String(origin);
+}
+
+String compareCmdHeader(const char * target, const char * origin)
+{
+  String tmpStr = String(target);
+  if (tmpStr.substring(0, 7) == String(origin)) {
+    return tmpStr.substring(7);
+  } else {
+    return "";
+  }
 }
