@@ -60,6 +60,7 @@ void dynCtrl(int IN1, int IN2, int IN3, int IN4, int PWMSpeed)
   digitalWrite(TT_B_PIN_IN4, IN4);
   analogWrite(TT_A_PIN_ENA, PWMSpeed);
   analogWrite(TT_B_PIN_ENB, PWMSpeed);
+
   delay(1);
 }
 
