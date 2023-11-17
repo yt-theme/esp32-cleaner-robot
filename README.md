@@ -8,7 +8,7 @@ esp32-devkit-v1 coded by arduino ide 1.8.57.0
 
 ### 接线
 * 所有板共地
-* esp32作为master与arduino-nano作为slave:
+* spi通信, esp32作为master与arduino-nano作为slave:
     1. esp32的D15与arduino-nano的10连接.
     2. esp32的D13与arduino-nano的11连接.
     3. esp32的D12与arduino-nano的12连接.
