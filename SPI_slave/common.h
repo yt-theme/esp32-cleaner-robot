@@ -27,12 +27,12 @@
 #define TT_B_PIN_IN4 18
 #define TT_B_PIN_ENB 6 // 6 pwm
 // pwm值预设 TT电机
-#define TT_PWM_SPEED_0 150
-#define TT_PWM_SPEED_1 200
+#define TT_PWM_SPEED_0 100
+#define TT_PWM_SPEED_1 150
 #define TT_PWM_SPEED_2 255
 
 // 信号间隔ms
-#define BLE_SIGNAL_INTERVAL 92
+#define BLE_SIGNAL_INTERVAL 90
 
 //动力部分
 #define BLE_CMD_FORWARD "direct.01"

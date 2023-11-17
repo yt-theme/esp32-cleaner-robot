@@ -58,9 +58,16 @@ void dynCtrl(int IN1, int IN2, int IN3, int IN4, int PWMSpeed)
   digitalWrite(TT_A_PIN_IN2, IN2);
   digitalWrite(TT_B_PIN_IN3, IN3);
   digitalWrite(TT_B_PIN_IN4, IN4);
-  analogWrite(TT_A_PIN_ENA, PWMSpeed);
-  analogWrite(TT_B_PIN_ENB, PWMSpeed);
-
+  if (dynIsClosed == true) {
+    for (int i=0; i<PWMSpeed; i+=10) {
+      analogWrite(TT_A_PIN_ENA, i);
+      analogWrite(TT_B_PIN_ENB, i);
+      delay(1);
+    }
+  } else {
+    analogWrite(TT_A_PIN_ENA, PWMSpeed);
+    analogWrite(TT_B_PIN_ENB, PWMSpeed);
+  }
   delay(1);
 }
 
@@ -71,34 +78,34 @@ static void dynamicalHandler(const char* cmdVal) {
   if (compareCmd(cmdVal, BLE_CMD_FORWARD)) {
     Serial.println("BLE_CMD_FORWARD =>");
     timeRec();
-    dynIsClosed = false;
     dynCtrl(HIGH, LOW, HIGH, LOW, pwmSpeed);
+    dynIsClosed = false;
 
   } else if (compareCmd(cmdVal, BLE_CMD_BACKWARD)) {
     Serial.println("BLE_CMD_BACKWARD =>");
     timeRec();
-    dynIsClosed = false;
     dynCtrl(LOW, HIGH, LOW, HIGH, pwmSpeed);
-
+    dynIsClosed = false;
+    
   } else if (compareCmd(cmdVal, BLE_CMD_TRUNLEFT)) {
     Serial.println("BLE_CMD_TRUNLEFT =>");
     timeRec();
-    dynIsClosed = false;
     dynCtrl(LOW, HIGH, HIGH, LOW, pwmSpeed);
+    dynIsClosed = false;
 
   } else if (compareCmd(cmdVal, BLE_CMD_TRUNRIGHT)) {
     Serial.println("BLE_CMD_TRUNRIGHT =>");
     timeRec();
-    dynIsClosed = false;
     dynCtrl(HIGH, LOW, LOW, HIGH, pwmSpeed);
+    dynIsClosed = false;
 
-  } else if (cmdVal == BLE_CMD_GEAR0) {
+  } else if (compareCmd(cmdVal, BLE_CMD_GEAR0)) {
     Serial.println("BLE_CMD_GEAR0 =>");
     pwmSpeed = TT_PWM_SPEED_0;
-  } else if (cmdVal == BLE_CMD_GEAR1) {
+  } else if (compareCmd(cmdVal, BLE_CMD_GEAR1)) {
     Serial.println("BLE_CMD_GEAR1 =>");
     pwmSpeed = TT_PWM_SPEED_1;
-  } else if (cmdVal == BLE_CMD_GEAR2) {
+  } else if (compareCmd(cmdVal, BLE_CMD_GEAR2)) {
     Serial.println("BLE_CMD_GEAR2 =>");
     pwmSpeed = TT_PWM_SPEED_2;
   }
