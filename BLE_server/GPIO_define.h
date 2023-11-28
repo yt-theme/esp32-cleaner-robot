@@ -16,6 +16,18 @@
 // #define MOTO_FREQ_PWM 50      // 舵机频率，那么周期也就是1/50，也就是20ms ，PWM⼀共有16个通道，0-7位⾼速通道由80Mhz时钟驱动，后⾯8个为低速通道由1Mhz
 // #define MOTO_RES_PWM 10       // 分辨率  0-1024  共1025
 
+// oled
+#define I2COLED_SDA 21
+#define I2COLED_SCL 22
+
+/*
+* 传感器
+*/
+// 电流传感器
+#define SENSOR_CURRENT_ADC 34
+// 电压传感器
+#define SENSOR_VOLTAGE_ADC 35
+
 void GPIO_define_init() {
   // spi
   // pinMode(SLAVE_SELECT_PIN, OUTPUT);
@@ -28,4 +40,10 @@ void GPIO_define_init() {
   // ledcSetup(MOTO_CHANNEL_PWM_1, MOTO_FREQ_PWM, MOTO_RES_PWM);  // 设置通道 2
   // ledcAttachPin(GPIO_DYNAMICAL_MOTO_0, MOTO_CHANNEL_PWM_0);    // 将引脚绑定到通道上 0
   // ledcAttachPin(GPIO_DYNAMICAL_MOTO_1, MOTO_CHANNEL_PWM_1);    // 将引脚绑定到通道上 1
+
+  /*
+  * 传感器
+  */
+  pinMode(SENSOR_CURRENT_ADC, INPUT);
+  pinMode(SENSOR_VOLTAGE_ADC, INPUT);
 }

@@ -5,6 +5,7 @@
 #include "BLE_cmd.h"
 // #include "dynamical_handler2.h"
 #include "spi_handler.h"
+#include "I2C_oled.h"
 
 /*
 * BLE server callbacks
@@ -35,9 +36,14 @@ class ReceiveCallbacks : public BLECharacteristicCallbacks {
 
     if (rxValue.length() > 0) {  //向串口输出收到的值
       Serial.print("RX: ");
-      for (int i = 0; i < rxValue.length(); i++)
-        Serial.print(rxValue[i]);
-      Serial.println();
+      // for (int i = 0; i < rxValue.length(); i++)
+      //   Serial.print(rxValue[i]);
+      // Serial.println();
+
+      /*
+      * 显示命令到oled
+      */
+      I2COled::displayBLECommand(rxValue);
 
       /*
           测试灯
