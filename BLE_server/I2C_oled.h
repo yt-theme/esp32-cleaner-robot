@@ -42,11 +42,27 @@ namespace I2COled {
   }
 
   /*
+  * 显示蓝牙连接状态
+  */
+  void displayBLEConnectStatus(const bool& isConnected)
+  {
+    String displayStr = "BLE status: ";
+    if (isConnected)
+    {
+      displayStr += "ok";
+    } else {
+      displayStr += "nok";
+    }
+    display.drawString(0, 24, displayStr);
+    display.display();
+  }
+
+  /*
   * 显示蓝牙接收的命令
   */
   void displayBLECommand(const std::string& cmdStr)
   {
-    display.drawString(0, 24, cmdStr.data());
+    display.drawString(0, 36, cmdStr.data());
     display.display();
   }
 
@@ -55,7 +71,7 @@ namespace I2COled {
   */
   void displayDebugMessage(const char* debugStr)
   {
-    display.drawString(0, 36, debugStr);
+    display.drawString(0, 48, debugStr);
     display.display();
   }
 }

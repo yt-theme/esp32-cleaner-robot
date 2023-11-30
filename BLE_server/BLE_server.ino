@@ -96,7 +96,7 @@ void loop() {
   // DynamicalHandler2::dynListenTimeForStop();
   ///
 
-  // 电流电压传感器及显示
+  // 状态显示
   if (loopCircleCounter == LOOP_CIRCLE_MAX) {
     // 清屏
     I2COled::clear();
@@ -106,6 +106,9 @@ void loop() {
     // 电压
     sensorUPSVoltageStr = String(SensorHandler::readUPSVoltageValue(), 2);
     I2COled::displayUpsVoltage(sensorUPSVoltageStr);
+    // 蓝牙连接状态
+    I2COled::displayBLEConnectStatus(deviceConnected);
+
     // 往遥控客户端推送
     if (pCharacteristic) {
       BLENotifyValueStr = "UPSCurrent=" + sensorUPSCurrentStr + "&UPSVoltage=" + sensorUPSVoltageStr;
