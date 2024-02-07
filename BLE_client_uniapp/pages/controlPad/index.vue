@@ -80,10 +80,17 @@
 				longPressTimer: null,
 				speedSliderChangeTimer: null,
 				speedSliderValue: 100,
+				signleActiveBtnCode: ""
 			}
 		},
 		onLoad(options) {
 			this.options = options
+		},
+		onHide() {
+			this.handleButtonUp();
+		},
+		onUnhandledRejection() {
+			this.handleButtonUp();
 		},
 		methods: {
 			async speedSliderChange(e) {
@@ -115,7 +122,8 @@
 					console.log("buffer =>", buffer)
 
 					uni.writeBLECharacteristicValue({
-						writeType: "writeNoResponse",
+						// writeType: "writeNoResponse",
+						writeType: "write",
 						// 这里的 deviceId 需要在 getBluetoothDevices 或 onBluetoothDeviceFound 接口中获取
 						deviceId: this.options.deviceId,
 						// 这里的 serviceId 需要在 getBLEDeviceServices 接口中获取
@@ -137,13 +145,27 @@
 			},
 			// 按钮按下
 			handleButtonDown(cmdVal) {
-				// 长按模拟
-				this.longPressTimer = setInterval(async () => {
-					console.log("btn interval =>", cmdVal)
-					try {
-						await this.writeBLECharacteristicValue(cmdVal);
-					} catch (e) {}
-				}, 20)
+				return new Promise((resolve, reject) => {
+					if (this.signleActiveBtnCode) {
+						return false;
+					}
+					this.signleActiveBtnCode = cmdVal;
+					
+					if (this.longPressTimer) {
+						return false;
+					}
+					
+					// 长按模拟
+					this.longPressTimer = setInterval(async () => {
+						console.log("btn interval =>", cmdVal)
+						try {
+							await this.writeBLECharacteristicValue(cmdVal);
+						} catch (e) {} finally {
+							this.signleActiveBtnCode = "";
+							resolve()
+						}
+					}, 20);
+				})
 			},
 			// 按钮抬起
 			handleButtonUp(cmdVal) {
