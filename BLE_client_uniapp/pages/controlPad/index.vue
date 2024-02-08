@@ -176,7 +176,7 @@
 		}
 	}
 </script>
-<style>
+<style lang="scss" scoped>
 	.controlPad-container {
 		width: 100vw;
 		height: 100vh;
