@@ -146,10 +146,10 @@
 			// 按钮按下
 			handleButtonDown(cmdVal) {
 				return new Promise((resolve, reject) => {
-					if (this.signleActiveBtnCode) {
-						return false;
-					}
-					this.signleActiveBtnCode = cmdVal;
+					// if (this.signleActiveBtnCode) {
+					// 	return false;
+					// }
+					// this.signleActiveBtnCode = cmdVal;
 					
 					if (this.longPressTimer) {
 						return false;
