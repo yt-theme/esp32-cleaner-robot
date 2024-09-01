@@ -1,4 +1,11 @@
 esp32-devkit-v1 coded by arduino ide 1.8.57.0
+
+### 项目目录介绍
+1. /BLE_client_uniapp 手机app, 蓝牙遥控端, uniapp编写, 已对android优化
+2. /BLE_server 用于到esp32板子上的程序
+3. /SPI_slave 用于arduino-nano板子的程序(与esp32经过SPI通信)
+4. /doc 相关参考资料选购件接线图等
+
 ### 主要硬件
 1. esp32-devkit-v1 及其扩展板 1个
 2. arduino-nano 及其扩展板 1个
