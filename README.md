@@ -1,5 +1,9 @@
 esp32-devkit-v1 coded by arduino ide 1.8.57.0
 
+### 开发工具
+1. arduino-ide 开发板程序开发
+2. hbuilderx 手机控制端app开发
+
 ### 项目目录介绍
 1. /BLE_client_uniapp 手机app, 蓝牙遥控端, uniapp编写, 已对android优化
 2. /BLE_server 用于到esp32板子上的程序
