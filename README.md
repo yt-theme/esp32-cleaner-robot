@@ -1,5 +1,9 @@
 esp32-devkit-v1 coded by arduino ide 1.8.57.0
 
+### 成品预览
+![成品预览1](doc/preview-1.jpg)
+![成品预览2](doc/preview-2.jpg)
+
 ### 开发工具
 1. arduino-ide 开发板程序开发
 2. hbuilderx 手机控制端app开发
